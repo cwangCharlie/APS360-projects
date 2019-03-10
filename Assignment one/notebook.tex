@@ -1,0 +1,905 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{a1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Assignment 1. Python and
+libraries}\label{assignment-1.-python-and-libraries}
+
+\textbf{Deadline}: January 20, 9pm.
+
+\textbf{Late Penalty}: See Syllabus
+
+\textbf{TAs}: Andrew Jung
+
+Welcome to the first assignment of APS360! This assignment is a warm up
+to get you used to the programming environment used in the course, and
+also to help you review and renew your knowledge of Python and relevant
+Python libraries. The assignment must be done individually. Please
+recall that the University of Toronto plagarism rules apply.
+
+By the end of this assignment, you should be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Set up the computing environment used in this course: the Python
+  language interpreter, Jupyter Notebook, and the PyCharm Integraded
+  Development Environment (IDE)
+\item
+  Write basic, object-oriented Python code.
+\item
+  Be able to perform matrix operations using \texttt{numpy}.
+\item
+  Be able to plot using \texttt{matplotlib}.
+\item
+  Be able to load, process, and visualize image data.
+\end{enumerate}
+
+\subsubsection{What to submit}\label{what-to-submit}
+
+Submit a PDF file containing all your code, outputs, and write-up from
+parts 1-4. \textbf{Do not submit any other files produced by your code.}
+
+Completing this assignment using Jupyter Notebook is highly recommended
+(though not necessarily for all subsequent assignments). If you are
+using Jupyter Notebook, you can export a PDF file using the menu option
+\texttt{File\ -\textgreater{}\ Download\ As\ -\textgreater{}\ PDF\ via\ LaTeX\ (pdf)}
+
+    \subsection{Part 0. Environment Setup;
+Readings}\label{part-0.-environment-setup-readings}
+
+Your first step is to set up your development environment. We'll be
+using the \textbf{Anaconda} distribution of Python 3.6. Following the
+instructions to install Python3.6, PyCharm, Jupyter Notebook:
+
+https://www.cs.toronto.edu/\textasciitilde{}lczhang/360/files/install.pdf
+
+To prepare for the rest of the assignment, the preparatory readings in
+section 2 of the installation instructions are very helpful.
+
+    \subsection{Part 1. Python Basics {[}6
+pt{]}}\label{part-1.-python-basics-6-pt}
+
+The purpose of this section is to get you used to the basics of Python,
+including working with functions, numbers, lists, and strings.
+
+    \subsubsection{Part (a) -\/- 3pt}\label{part-a----3pt}
+
+Write a function \texttt{sum\_of\_squares} that computes the sum of
+squares up to \texttt{n}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{sum\PYZus{}of\PYZus{}squares}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{sum} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{sum} \PY{o}{=} \PY{n}{i}\PY{o}{*}\PY{n}{i} \PY{o}{+} \PY{n+nb}{sum} 
+             
+             \PY{k}{return} \PY{n+nb}{sum}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return the sum (1 + 2\PYZca{}2 + 3\PYZca{}2 + ... + n\PYZca{}2)}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Precondition: n \PYZgt{} 0, type(n) == int}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} sum\PYZus{}of\PYZus{}squares(3)}
+         \PY{l+s+sd}{    14}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} sum\PYZus{}of\PYZus{}squares(1)}
+         \PY{l+s+sd}{    1}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+         \PY{n}{sum\PYZus{}of\PYZus{}squares}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 14
+\end{Verbatim}
+            
+    \subsubsection{Part (b) -\/- 3pt}\label{part-b----3pt}
+
+Write a function \texttt{word\_lengths} that takes a sentence (string),
+computes the length of each word in that sentence, and returns the
+length of each word in a list. You can assume that words are always
+separated by a space character \texttt{"\ "}.
+
+Hint: recall the \texttt{str.split} function in Python. If you arenot
+sure how this function works, try typing \texttt{help(str.split)} into a
+Python shell, or checkout
+https://docs.python.org/3.6/library/stdtypes.html\#str.split
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{help}\PY{p}{(}\PY{n+nb}{str}\PY{o}{.}\PY{n}{split}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on method\_descriptor:
+
+split({\ldots})
+    S.split(sep=None, maxsplit=-1) -> list of strings
+    
+    Return a list of the words in S, using sep as the
+    delimiter string.  If maxsplit is given, at most maxsplit
+    splits are done. If sep is not specified or is None, any
+    whitespace string is a separator and empty strings are
+    removed from the result.
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{word\PYZus{}lengths}\PY{p}{(}\PY{n}{sentence}\PY{p}{)}\PY{p}{:}
+            \PY{n}{words}\PY{o}{=} \PY{n}{sentence}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{result}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return a list containing the length of each word in}
+        \PY{l+s+sd}{    sentence.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} word\PYZus{}lengths(\PYZdq{}welcome to APS360!\PYZdq{})}
+        \PY{l+s+sd}{    [7, 2, 7]}
+        \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} word\PYZus{}lengths(\PYZdq{}machine learning is so cool\PYZdq{})}
+        \PY{l+s+sd}{    [7, 8, 2, 2, 4]}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{n}{word\PYZus{}lengths}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{welcome to APS360!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [7, 2, 7]
+\end{Verbatim}
+            
+    \subsection{Part 2. NumPy Exercises {[}9
+pt{]}}\label{part-2.-numpy-exercises-9-pt}
+
+In this part of the assignment, you'll be manipulating arrays usign
+NumPy. Normally, we use the shorter name \texttt{np} to represent the
+package \texttt{numpy}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \subsubsection{Part (a) -\/- 1pt}\label{part-a----1pt}
+
+Load the file \texttt{matrix.csv} into a variable called \texttt{matrix}
+using the function \texttt{np.loadtxt}. Make sure that
+\texttt{matrix.csv} is in \textbf{the same file folder} as this
+notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{matrix.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{matrix}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} array([[1., 2., 3.],
+                [4., 5., 6.],
+                [7., 8., 9.]])
+\end{Verbatim}
+            
+    \subsubsection{Part (b) -\/- 1pt}\label{part-b----1pt}
+
+Load the file \texttt{vector.npy} into a variable called \texttt{vector}
+using the function \texttt{np.load}. As before, make sure that
+\texttt{vector.npy} is in \textbf{the same file folder} as this
+notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{vector} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vector.npy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{vector} \PY{o}{=} \PY{n}{vector}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{vector}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} array([[10.],
+                [20.],
+                [15.]])
+\end{Verbatim}
+            
+    \subsubsection{Part (c) -\/- 3pt}\label{part-c----3pt}
+
+Perform matrix multiplication \texttt{output\ =\ matrix\ x\ vector} by
+using for loops to iterate through the columns and rows. Do not use any
+builtin NumPy functions.
+
+Hint: be mindful of the dimension of output
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{output\PYZus{}list} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{current\PYZus{}R} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vector}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{current\PYZus{}sum} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vector}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{current\PYZus{}sum} \PY{o}{+}\PY{o}{=} \PY{n}{matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{*}\PY{n}{vector}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                  \PY{n}{current\PYZus{}R}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current\PYZus{}sum}\PY{p}{)}
+              \PY{n}{output\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current\PYZus{}R}\PY{p}{)}
+          \PY{n}{output} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{output\PYZus{}list}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{output}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}140}]:} array([[ 95.],
+                 [230.],
+                 [365.]])
+\end{Verbatim}
+            
+    \subsubsection{Part (d) -\/- 1pt}\label{part-d----1pt}
+
+Save the \texttt{output} variable into a csv file called
+\texttt{output\_forloop.csv} using the function \texttt{numpy.savetxt}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{np}\PY{o}{.}\PY{n}{savetxt}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output\PYZus{}forloop.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Part (e) -\/- 1pt}\label{part-e----1pt}
+
+Perform matrix multiplication \texttt{output2\ =\ matrix\ x\ vector} by
+using the function \texttt{numpy.dot}.
+
+We will never actually write code as in part(c), not only because
+\texttt{numpy.dot} is more concise and easier to read/write, but also
+performance-wise \texttt{numpy.dot} is much faster (it is written in C
+and highly optimized). In general, we will avoid for loops in our code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{output2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{matrix}\PY{p}{,}\PY{n}{vector}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{output2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} array([[ 95.],
+                [230.],
+                [365.]])
+\end{Verbatim}
+            
+    \subsubsection{Part (f) -\/- 1pt}\label{part-f----1pt}
+
+Save the \texttt{output2} variable into a csv file called
+\texttt{output\_dot.npy} using the function \texttt{numpy.save}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output\PYZus{}dot.npy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{output2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Part (g) -\/- 1pt}\label{part-g----1pt}
+
+As a way to test for consistency, show that the two outputs match.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{output2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 95.]
+ [230.]
+ [365.]]
+[[ 95.]
+ [230.]
+ [365.]]
+
+    \end{Verbatim}
+
+    \subsection{Part 3. Callable Objects {[}12
+pt{]}}\label{part-3.-callable-objects-12-pt}
+
+    A \emph{callable object} is any object that can be called like a
+function. In Python, any object whose class has a \texttt{\_\_call\_\_}
+method will be callable. For example, we can define an \texttt{AddBias}
+class that is initialized with a value \texttt{val}. When the object of
+the Adder class is called with \texttt{input}, it will return the sum of
+\texttt{val} and \texttt{input}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{k}{class} \PY{n+nc}{AddBias}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{val}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val} \PY{o}{=} \PY{n}{val}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val} \PY{o}{+} \PY{n+nb}{input}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{add4} \PY{o}{=} \PY{n}{AddBias}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{add4}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} 7
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} AddBias works with numpy arrays as well}
+          
+          \PY{n}{add1} \PY{o}{=} \PY{n}{AddBias}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{add1}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} array([4, 5, 6])
+\end{Verbatim}
+            
+    \subsubsection{Part (a) -\/- 2pt}\label{part-a----2pt}
+
+Create a callable object class \texttt{ElementwiseMultiply} that is
+initialized with \texttt{weight}, which is a numpy array (with
+1-dimension). When called on \texttt{input} of \textbf{the same shape}
+as \texttt{weight}, the object will output an elementwise product of
+\texttt{input} and \texttt{weight}. For example, the 1st element in the
+output will be a product of the first element of \texttt{input} and
+first element of \texttt{weight}. If the \texttt{input} and
+\texttt{weight} have different shape, do not return anything.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{k}{class} \PY{n+nc}{ElementwiseMultiply}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{weight}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight} \PY{o}{=} \PY{n}{weight}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}\PY{o}{==}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \subsubsection{Part (b) -\/- 4pt}\label{part-b----4pt}
+
+Create a callable object class \texttt{LeakyRelu} that is initialized
+with \texttt{alpha}, which is a scalar value. When called on
+\texttt{input}, which may be a NumPy array, the object will output:
+
+\begin{itemize}
+\tightlist
+\item
+  \(f(x) = x\) if \(x \ge 0\)
+\item
+  \(f(x) = \alpha x\) if \(x < 0\)
+\end{itemize}
+
+To obtain full marks, do \textbf{not} use any for-loops to implement
+this class.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{k}{class} \PY{n+nc}{LeakyRelu}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{alpha} \PY{o}{=} \PY{n}{alpha}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{input\PYZus{}a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{input\PYZus{}a}\PY{p}{[}\PY{n}{input\PYZus{}a}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{alpha}
+                  \PY{k}{return} \PY{n}{input\PYZus{}a}
+\end{Verbatim}
+
+
+    \subsubsection{Part (c) -\/- 4pt}\label{part-c----4pt}
+
+Create a callable object class \texttt{Compose} that is initialized with
+\texttt{layers}, which is a list of callable objects each taking in one
+argument when called. For example, \texttt{layers} can be something like
+\texttt{{[}add1,\ add4{]}} that we created above. Each \texttt{add1} and
+\texttt{add4} take in one argument. When \texttt{Compose} object is
+called on \textbf{a single argument}, the object will output a
+composition of object calls in \texttt{layers}, in the order given in
+\texttt{layers} (e.g. \texttt{add1} will be called first and then
+\texttt{add4} will be called after using the result from \texttt{add1}
+call)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{k}{class} \PY{n+nc}{Compose}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layers}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers} \PY{o}{=} \PY{n}{layers}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{cur\PYZus{}input} \PY{o}{=} \PY{n+nb}{input}
+                  \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{:}
+                      \PY{n}{cur\PYZus{}result} \PY{o}{=} \PY{n}{s}\PY{p}{(}\PY{n}{cur\PYZus{}input}\PY{p}{)}
+                      \PY{n}{cur\PYZus{}input} \PY{o}{=}  \PY{n}{cur\PYZus{}result}
+                  \PY{k}{return} \PY{n}{cur\PYZus{}input}
+                  
+\end{Verbatim}
+
+
+    \subsubsection{Part (d) -\/- 2pt}\label{part-d----2pt}
+
+Run the below code and include the output in your report.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{n}{weight\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+          \PY{n}{weight\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+          \PY{n}{bias\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{3}
+          \PY{n}{bias\PYZus{}2} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}
+          \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.1}
+          
+          \PY{n}{elem\PYZus{}mult\PYZus{}1} \PY{o}{=} \PY{n}{ElementwiseMultiply}\PY{p}{(}\PY{n}{weight\PYZus{}1}\PY{p}{)}
+          \PY{n}{add\PYZus{}bias\PYZus{}1} \PY{o}{=} \PY{n}{AddBias}\PY{p}{(}\PY{n}{bias\PYZus{}1}\PY{p}{)}
+          \PY{n}{leaky\PYZus{}relu} \PY{o}{=} \PY{n}{LeakyRelu}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}
+          \PY{n}{elem\PYZus{}mult\PYZus{}2} \PY{o}{=} \PY{n}{ElementwiseMultiply}\PY{p}{(}\PY{n}{weight\PYZus{}2}\PY{p}{)}
+          \PY{n}{add\PYZus{}bias\PYZus{}2} \PY{o}{=} \PY{n}{AddBias}\PY{p}{(}\PY{n}{bias\PYZus{}2}\PY{p}{)}
+          \PY{n}{layers} \PY{o}{=} \PY{n}{Compose}\PY{p}{(}\PY{p}{[}\PY{n}{elem\PYZus{}mult\PYZus{}1}\PY{p}{,} 
+                            \PY{n}{add\PYZus{}bias\PYZus{}1}\PY{p}{,} 
+                            \PY{n}{leaky\PYZus{}relu}\PY{p}{,}
+                            \PY{n}{elem\PYZus{}mult\PYZus{}2}\PY{p}{,} 
+                            \PY{n}{add\PYZus{}bias\PYZus{}2}\PY{p}{,} 
+                            \PY{n}{leaky\PYZus{}relu}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{input} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Input: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}
+          
+          \PY{n}{output} \PY{o}{=} \PY{n}{layers}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Input:  [ 10   5  -5 -10]
+Output: [-1.5 -2.8  1.6 12.8]
+
+    \end{Verbatim}
+
+    \subsection{Part 4. Images {[}13 pt{]}}\label{part-4.-images-13-pt}
+
+A picture or image can be represented as a NumPy array of ``pixels'',
+with dimensions H × W × C, where H is the height of the image, W is the
+width of the image, and C is the number of colour channels. Typically we
+will use an image with channels that give the the Red, Green, and Blue
+``level'' of each pixel, which is referred to with the short form RGB.
+
+You will write Python code to load an image, and perform several array
+manipulations to the image and visualize their effects. You'll need the
+file \texttt{dog\_mochi.png} from the same place you downloaded this
+assignment. Save the output images in the same directory as the Jupyter
+Notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \subsubsection{Part (a) -\/- 1 pt}\label{part-a----1-pt}
+
+Load the image \texttt{dog\_mochi.png} into the variable \texttt{img}
+using the \texttt{pyplot.imread} function. This is a photograph of a dog
+whose name is Mochi.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}156}]:} \PY{n}{img} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dog\PYZus{}mochi.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Part (b) -\/- 1pt}\label{part-b----1pt}
+
+Use the function \texttt{plt.imshow} to visualize \texttt{img}.
+
+This function will also show the coordinate system used to identify
+pixels. The origin is at the top left corner, and the first dimension
+indicates the Y (row) direction, and the second dimension indicates the
+X (column) dimension.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}157}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}157}]:} <matplotlib.image.AxesImage at 0x1a5f4454128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Part (c) -\/- 2pt}\label{part-c----2pt}
+
+What is the pixel coordinate of Mochi's eye? Show the value of each of
+the 3 channels on a pixel cooresponding to Mochi's eye.
+
+The value for each channel in the original image ranges from 0 (darkest)
+to 255 (lightest). However, when loading an image through Matplotlib,
+this range will be scaled to be from 0 (darkest) to 1 (brightest)
+instead, and will be a real number, rather than an integer.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{img}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}158}]:} array([0.58431375, 0.41568628, 0.2509804 , 1.        ], dtype=float32)
+\end{Verbatim}
+            
+    \subsubsection{Part (d) -\/- 2pt}\label{part-d----2pt}
+
+Modify the image by adding a constant value of 0.25 to each pixel in the
+\texttt{img} and store the result in the variable \texttt{img\_add}.
+Note that, since the range for the pixels needs to be between {[}0,
+1{]}, you will also need to clip img\_add to be in the range {[}0, 1{]}
+using \texttt{numpy.clip}. Clipping sets any value that is outside of
+the desired range to the closest endpoint. Display the image using
+\texttt{plt.imshow}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{n}{img\PYZus{}add} \PY{o}{=} \PY{n}{img}\PY{o}{+}\PY{l+m+mf}{0.25}
+          \PY{n}{np}\PY{o}{.}\PY{n}{clip}\PY{p}{(}\PY{n}{img\PYZus{}add}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{out} \PY{o}{=} \PY{n}{img\PYZus{}add}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}add}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}162}]:} <matplotlib.image.AxesImage at 0x1a5f4cdb160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Part (e) -\/- 3pt}\label{part-e----3pt}
+
+From the original image, create three images that separate out the three
+colour channels (red, green and blue).
+
+Hint: First create an array initialized with zeros, then copy over the
+specific channel's 2D content from img.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{n}{red\PYZus{}im} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{blu\PYZus{}im} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{gren\PYZus{}im} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}plt.imshow(red\PYZus{}im)}
+          \PY{c+c1}{\PYZsh{}plt.imshow(blu\PYZus{}im)}
+          \PY{c+c1}{\PYZsh{}plt.imshow(gren\PYZus{}im)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}166}]:} <matplotlib.image.AxesImage at 0x1a5f6199ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Part (f) -\/- 3pt}\label{part-f----3pt}
+
+Crop the image to only show Mochis face. Your image should be square.
+Display the image.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n}{img\PYZus{}face} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{130}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}face}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}168}]:} <matplotlib.image.AxesImage at 0x1a5f61f1358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Part (g) -\/- 1pt}\label{part-g----1pt}
+
+Finally, save the image from part (f) using \texttt{plt.imsave} as the
+filename \texttt{dog\_name.png}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}169}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imsave}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dog\PYZus{}name.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{img\PYZus{}face}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
